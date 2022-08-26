@@ -1,0 +1,4 @@
+<resources>
+
+    <style name="Theme.Quest" parent="@style/Theme.Leanback" />
+</resources>
