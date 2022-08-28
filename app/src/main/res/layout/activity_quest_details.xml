@@ -17,12 +17,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/details_card"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/card_bg"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="p"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lbl1_tv">
 
@@ -79,37 +78,38 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/country_btn"
             style="@style/selection_btn"
-            android:layout_marginStart="10dp"
             android:text="Russia"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/date_tv"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/city_btn"
             style="@style/selection_btn"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:text="Kazan"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/country_btn"
             app:layout_constraintTop_toBottomOf="@id/country_btn" />
 
-        <TextView
-            android:id="@+id/dates_range_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/difficulty_tv" />
+<!--        <TextView-->
+<!--            android:id="@+id/dates_range_tv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/difficulty_tv" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/desc_card"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/card_bg"
         android:orientation="vertical"
         android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="@id/details_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/details_card">
 
@@ -117,6 +117,7 @@
             android:id="@+id/quest_desc_lbl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
             android:text="Description" />
 
         <TextView
@@ -128,12 +129,27 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager_1"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@id/details_card"
         app:layout_constraintStart_toStartOf="@id/desc_card"
         app:layout_constraintTop_toBottomOf="@id/desc_card" />
-
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:dotsColor="@color/white"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="10dp"
+        app:dotsSpacing="4dp"
+        app:dotsWidthFactor="2.5"
+        app:layout_constraintStart_toStartOf="@id/viewpager_1"
+        app:layout_constraintEnd_toEndOf="@id/viewpager_1"
+        app:layout_constraintBottom_toBottomOf="@id/viewpager_1"
+        app:progressMode="true"
+        app:selectedDotColor="@color/text_color" />
     <TextView
         android:id="@+id/lbl2_tv"
         style="@style/heading_text"
@@ -178,12 +194,13 @@
 
     <LinearLayout
         android:id="@+id/task_desc_card"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/card_bg"
         android:orientation="vertical"
         android:padding="8dp"
+        app:layout_constraintEnd_toStartOf="@id/viewpager_2"
         app:layout_constraintStart_toStartOf="@id/lbl2_tv"
         app:layout_constraintTop_toBottomOf="@id/task_goal">
 
@@ -201,7 +218,16 @@
             android:text="TextView" />
     </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button6"
+        android:id="@+id/share_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toTopOf="@id/send_result_btn"
+        app:layout_constraintEnd_toStartOf="@id/send_result_btn"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/share_icon"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/send_result_btn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:paddingStart="10dp"
@@ -213,19 +239,45 @@
         android:textAllCaps="false" />
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager_2"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/task_desc_card"
-        app:layout_constraintStart_toEndOf="@id/task_desc_card" />
-    <ListView
+        app:layout_constraintTop_toTopOf="@id/task_desc_card" />
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dots_indicator2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:dotsColor="@color/white"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="10dp"
+        app:dotsSpacing="4dp"
+        app:dotsWidthFactor="2.5"
+        app:layout_constraintStart_toStartOf="@id/viewpager_2"
+        app:layout_constraintEnd_toEndOf="@id/viewpager_2"
+        app:layout_constraintBottom_toBottomOf="@id/viewpager_2"
+        app:progressMode="true"
+        app:selectedDotColor="@color/text_color" />
+    <include
+        android:id="@+id/videoItem"
+        layout="@layout/meadia_item"
+        app:layout_constraintStart_toStartOf="@id/viewpager_2"
+        app:layout_constraintEnd_toEndOf="@id/viewpager_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@id/viewpager_2"
         app:layout_constraintTop_toBottomOf="@id/viewpager_2"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        />
+    <include
+        android:id="@+id/audioItem"
+        layout="@layout/meadia_item"
+        app:layout_constraintStart_toStartOf="@id/viewpager_2"
+        app:layout_constraintEnd_toEndOf="@id/viewpager_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/videoItem"
+        android:layout_marginTop="8dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

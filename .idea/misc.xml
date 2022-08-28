@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/background_green.xml" value="0.2235" />
         <entry key="app/src/main/res/drawable/card_bg.xml" value="0.2235" />
         <entry key="app/src/main/res/drawable/circle_bg.xml" value="0.2235" />
@@ -11,13 +12,15 @@
         <entry key="app/src/main/res/layout-land/slider_one.xml" value="0.2949255537944706" />
         <entry key="app/src/main/res/layout/achievements_item.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/activity_compass.xml" value="0.22204132080078126" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.3246627807617188" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23375701904296878" />
         <entry key="app/src/main/res/layout/activity_onboard.xml" value="0.17447916666666666" />
-        <entry key="app/src/main/res/layout/activity_quest_details.xml" value="0.2584136962890625" />
-        <entry key="app/src/main/res/layout/activity_quest_list.xml" value="0.2051559448242188" />
+        <entry key="app/src/main/res/layout/activity_quest_details.xml" value="0.40632019042968753" />
+        <entry key="app/src/main/res/layout/activity_quest_list.xml" value="0.2789833567621633" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/activity_video.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/crousal_item.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/layout/meadia_item.xml" value="0.20799255371093753" />
         <entry key="app/src/main/res/layout/no_tasks_card.xml" value="0.29393115942028986" />
@@ -27,8 +30,24 @@
         <entry key="app/src/main/res/layout/quests_fav_item.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/layout/rating_item.xml" value="0.24095764160156252" />
         <entry key="app/src/main/res/layout/rating_stars.xml" value="0.19579533941236069" />
+        <entry key="app/src/main/res/layout/video_dialog.xml" value="0.18884124755859377" />
         <entry key="app/src/main/res/layout/weather_card.xml" value="0.29393115942028986" />
-        <entry key="quest/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />
+        <entry key="quest/src/main/res/drawable/background_green.xml" value="0.184" />
+        <entry key="quest/src/main/res/drawable/card_active_bg.xml" value="0.2615" />
+        <entry key="quest/src/main/res/drawable/card_bg.xml" value="0.184" />
+        <entry key="quest/src/main/res/layout/activity_login.xml" value="0.25208587646484376" />
+        <entry key="quest/src/main/res/layout/activity_main.xml" value="0.18610534667968753" />
+        <entry key="quest/src/main/res/layout/activity_partcipants.xml" value="0.1" />
+        <entry key="quest/src/main/res/layout/activity_splash.xml" value="0.2663645426432292" />
+        <entry key="quest/src/main/res/layout/activity_tasks_list.xml" value="0.22991129557291662" />
+        <entry key="quest/src/main/res/layout/fragment_main.xml" value="0.346875" />
+        <entry key="quest/src/main/res/layout/popular_quest_item.xml" value="0.17552083333333332" />
+        <entry key="watch/src/main/res/drawable/background_green.xml" value="0.2615" />
+        <entry key="watch/src/main/res/layout/activity_login.xml" value="0.7422907488986784" />
+        <entry key="watch/src/main/res/layout/activity_login_error.xml" value="0.8608786610878661" />
+        <entry key="watch/src/main/res/layout/activity_main.xml" value="0.8608786610878661" />
+        <entry key="watch/src/main/res/layout/activity_no_tasks.xml" value="0.8608786610878661" />
+        <entry key="watch/src/main/res/layout/activity_task.xml" value="0.8608786610878661" />
       </map>
     </option>
   </component>

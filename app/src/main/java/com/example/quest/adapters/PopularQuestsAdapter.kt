@@ -1,6 +1,7 @@
 package com.example.quest.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.quest.QuestDetailsActivity
 import com.example.quest.QuestListActivity
 import com.example.quest.R
 import com.example.quest.database.QuestDatabase
@@ -62,6 +64,12 @@ class PopularQuestsAdapter(val quests: List<Quest>, val from:String): RecyclerVi
                     fav = !fav
                 }
             }
+            holder.questDetailsTv.setOnClickListener {
+                val intent = Intent(holder.itemView.context,QuestDetailsActivity::class.java)
+                intent.putExtra("Quest",quests[position])
+                holder.itemView.context.startActivity(intent)
+            }
+
         }
     }
     fun isItFav(id: Int, context: Context):Boolean{
@@ -127,6 +135,7 @@ class PopularQuestsAdapter(val quests: List<Quest>, val from:String): RecyclerVi
     class PopularViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val questNameTv = itemView.findViewById<TextView>(R.id.quest_name_tv)
         val questDescTv =itemView.findViewById<TextView>(R.id.quest_desc_tv)
+        val questDetailsTv =itemView.findViewById<TextView>(R.id.details_tv)
         val questIv =itemView.findViewById<ImageView>(R.id.quest_image_iv)
         val faveIv =itemView.findViewById<ImageView>(R.id.fav_icon)
 

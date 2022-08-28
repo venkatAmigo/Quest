@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Quest"
 include ':app'
 include ':quest'
+include ':watch'

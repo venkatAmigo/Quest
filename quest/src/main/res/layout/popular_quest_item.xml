@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:background="@drawable/card_bg"
+    android:orientation="vertical"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp">
+
+    <ImageView
+        android:id="@+id/quest_image_iv"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/default_background" />
+    <TextView
+        android:id="@+id/quest_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/green"/>
+
+    <TextView
+        android:id="@+id/quest_desc_tv"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:text="Now you must go to Kazan Expo and find next key. And there are many more interesting information. I just lazy to write it. Too lazy. Just let me stop. I don't wanna do it."
+        android:layout_marginTop="8dp"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/details_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Details ->"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/green" />
+
+</LinearLayout>
