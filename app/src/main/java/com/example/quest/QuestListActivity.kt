@@ -58,9 +58,12 @@ class QuestListActivity : AppCompatActivity(), View.OnClickListener {
             R.id.all_btn -> {
                 Toast.makeText(this, "all_btn", Toast.LENGTH_SHORT).show()
                 binding.questListRecycler.adapter = CategoryAdapter(quest.content)
+                binding.allBtn.setBackgroundResource(R.drawable.background_green)
+                binding.favBtn.setBackgroundResource(R.drawable.selection_button)
             }
             R.id.fav_btn -> {
-
+                binding.favBtn.setBackgroundResource(R.drawable.background_green)
+                binding.allBtn.setBackgroundResource(R.drawable.selection_button)
                 CoroutineScope(Dispatchers.IO).launch {
                     val quests = QuestDatabase.getDatabaseInstance(this@QuestListActivity).getDao()
                     .getAll()

@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.quest.QuestDetailsActivity
-import com.example.quest.QuestListActivity
 import com.example.quest.R
 import com.example.quest.database.QuestDatabase
 import com.example.quest.model.DummyTask
@@ -22,7 +21,6 @@ import com.example.quest.utils.AlertHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class PopularQuestsAdapter(val quests: List<Quest>, val from:String): RecyclerView
@@ -45,21 +43,21 @@ class PopularQuestsAdapter(val quests: List<Quest>, val from:String): RecyclerVi
             .into(holder.questIv)
         if (from == "sections") {
             holder.faveIv.visibility = View.VISIBLE
-            var fav = isItFav(quests[position].id,holder.itemView.context)
+            var fav = isItFav(quests[position].id,quests[position].name,holder.itemView.context)
             if (fav) {
-                holder.faveIv.setImageResource(R.drawable.fav_stroke)
+                holder.faveIv.setImageResource(R.drawable.not_fav)
                 fav = !fav
             } else {
-                holder.faveIv.setImageResource(R.drawable.not_fav)
+                holder.faveIv.setImageResource(R.drawable.fav_stroke)
                 fav = !fav
             }
             holder.faveIv.setOnClickListener {
                 if (fav) {
-                    holder.faveIv.setImageResource(R.drawable.fav_stroke)
+                    holder.faveIv.setImageResource(R.drawable.not_fav)
                     deleteFromFav(quests[position].id,holder.itemView.context)
                     fav = !fav
                 } else {
-                    holder.faveIv.setImageResource(R.drawable.not_fav)
+                    holder.faveIv.setImageResource(R.drawable.fav_stroke)
                     addToFav(quests[position],holder.itemView.context)
                     fav = !fav
                 }
@@ -72,12 +70,12 @@ class PopularQuestsAdapter(val quests: List<Quest>, val from:String): RecyclerVi
 
         }
     }
-    fun isItFav(id: Int, context: Context):Boolean{
+    fun isItFav(id: Int, name: String, context: Context):Boolean{
         var favQuestNo = 0
         CoroutineScope(Dispatchers.IO).launch {
             val favQuest = QuestDatabase.getDatabaseInstance(context).getDao().getOne(id)
-            if(favQuest !=null && favQuest.size == 1){
-                if(favQuest[0].id == id) {
+            if(favQuest.size == 1){
+                if(favQuest[0].name == name) {
                     favQuestNo = 1
                     Log.i("ISFAV","TRUEE")
                 }

@@ -111,7 +111,6 @@ class TasksFragment(val tasks: Quest) : VerticalGridSupportFragment(), OnItemVie
         row: Row?
     ) {
         startActivity(Intent(requireContext(),PartcipantsActivity::class.java))
-        Toast.makeText(itemViewHolder?.view?.context, "Clicked", Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemSelected(

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".SignupActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="#3A3939"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            >
+
+            <EditText
+                android:id="@+id/email_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:backgroundTint="@color/green"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/plus_tv"
+                app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/nick_name_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nick name"
+                android:backgroundTint="@color/green"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/email_et"
+                app:layout_constraintTop_toBottomOf="@id/email_et" />
+            <TextView
+                android:id="@+id/plus_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nick_name_et"
+                />
+            <EditText
+                android:id="@+id/phone_code_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="2"
+                android:hint="Code"
+                android:backgroundTint="@color/green"
+                android:inputType="number"
+                app:layout_constraintStart_toEndOf="@id/plus_tv"
+                app:layout_constraintTop_toTopOf="@id/plus_tv"
+                app:layout_constraintBottom_toBottomOf="@id/plus_tv"/>
+            <EditText
+                android:id="@+id/phone_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Phone"
+                android:backgroundTint="@color/green"
+                android:inputType="text"
+                app:layout_constraintTop_toTopOf="@id/phone_code_et"
+                app:layout_constraintBottom_toBottomOf="@id/phone_code_et"
+                app:layout_constraintStart_toEndOf="@id/phone_code_et"
+                app:layout_constraintEnd_toEndOf="parent"
+                 />
+
+            <EditText
+                android:id="@+id/password_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Password"
+                android:backgroundTint="@color/green"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_code_et" />
+            <EditText
+                android:id="@+id/rep_pass_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Repeat Password"
+                android:backgroundTint="@color/green"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_et" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signup_btn"
+                android:text="Signup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rep_pass_et"
+                style="@style/button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

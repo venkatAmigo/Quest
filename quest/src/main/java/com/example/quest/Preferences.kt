@@ -1,4 +1,4 @@
-package com.example.quest.utils
+package com.example.quest
 
 import android.content.SharedPreferences
 
@@ -9,7 +9,6 @@ fun SharedPreferences.putAny(name:String,value:Any){
         is String -> edit().putString(name,value).apply()
         is Boolean -> edit().putBoolean(name,value).apply()
         is Int -> edit().putInt(name,value).apply()
-        is Float -> edit().putFloat(name,value).apply()
     }
 }
 

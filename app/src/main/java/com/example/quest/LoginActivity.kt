@@ -27,10 +27,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        if(BuildConfig.DEBUG){
-//            FacebookSdk.setIsDebugEnabled(true)
-//            FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS)
-//        }
+        if(BuildConfig.DEBUG){
+            FacebookSdk.setIsDebugEnabled(true)
+            FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS)
+        }
 
         binding.loginBtn.setOnClickListener {
             val email = binding.emailEt.text.toString()
@@ -48,6 +48,9 @@ class LoginActivity : AppCompatActivity() {
                     Log.i("B32",response.body().toString())
                 }
             }
+        }
+        binding.signupBtn.setOnClickListener {
+            startActivity(Intent(this,SignupActivity::class.java))
         }
 
         callbackManager = CallbackManager.Factory.create()

@@ -28,11 +28,20 @@ object ApiService {
         return@withContext getInstance().login(loginBody)
     }
 
+    suspend fun doSignup(signupBody: SignupBody): Response<String> = withContext(Dispatchers.IO) {
+        return@withContext getInstance().signup(signupBody)
+    }
     suspend fun getPopularQuests(token: String): Response<QuestsList> = withContext(
         Dispatchers
             .IO
     ) {
         return@withContext getInstance().getPopularQuests(token)
+    }
+    suspend fun getAllQuests(token: String): Response<QuestsList> = withContext(
+        Dispatchers
+            .IO
+    ) {
+        return@withContext getInstance().getAllQuests(token)
     }
     suspend fun getUserProfile(token: String): Response<Profile> = withContext(
         Dispatchers

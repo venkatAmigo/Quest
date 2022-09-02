@@ -69,11 +69,12 @@ data class QuestCategory(
 @Entity(tableName = "TaskListItem")
 data class TaskListItem(
     @PrimaryKey val id: Int,
-    val name: String,
-    val status: String,
-    val goalType: String,
+    var name: String,
+    var status: String,
+    var goalType: String,
     val taskCompletionTime: Int? = null,
-    val startDate: String? = null,
-    val endDate: String? = null
+    var startDate: String? = null,
+    var endDate: String? = null,
+    var goalValue: Int? = null,
 ):Serializable {
 }

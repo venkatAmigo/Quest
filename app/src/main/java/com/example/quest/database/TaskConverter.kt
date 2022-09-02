@@ -28,7 +28,7 @@ class TaskConverter {
                 if(arr.size == 7)
                 arr.get(0).let { TaskListItem(it.toInt(),arr[1],arr[2],arr[3],arr[4]
                     .toInt(),
-                    arr[5],arr[6]) }.let { it1 -> taskItems.add(it1) }
+                   arr[5],arr[6]) }.let { it1 -> taskItems.add(it1) }
 
             }
             return DummyTask(taskItems)

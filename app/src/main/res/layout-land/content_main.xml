@@ -92,7 +92,7 @@
                 app:layout_constraintStart_toEndOf="@id/container_view"
                 app:layout_constraintTop_toBottomOf="@id/labl_2">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/profile_iv"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -145,6 +145,7 @@
                         android:text="LEVEL"
                         android:textColor="@color/text_color"
                         android:textSize="10sp" />
+
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

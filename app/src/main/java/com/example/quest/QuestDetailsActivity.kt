@@ -1,18 +1,30 @@
 package com.example.quest
 
+import android.Manifest
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Binder
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.quest.adapters.ViewPagerAdapter
 import com.example.quest.databinding.ActivityQuestDetailsBinding
 import com.example.quest.model.Quest
 import com.example.quest.model.QuestsList
 import com.example.quest.utils.AlertHelper
+import com.example.quest.utils.Prefs
+import com.example.quest.utils.putAny
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.ScanOptions
@@ -20,9 +32,14 @@ import org.w3c.dom.Text
 import java.util.jar.Attributes
 import kotlin.concurrent.fixedRateTimer
 
-class QuestDetailsActivity : AppCompatActivity(){
+class QuestDetailsActivity : AppCompatActivity(),SensorEventListener{
     lateinit var binding: ActivityQuestDetailsBinding
     lateinit var seekBar:SeekBar
+
+    lateinit var sensorManager: SensorManager
+    var totalSteps = 0f
+    var previousSteps = 0f
+    var running = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =  ActivityQuestDetailsBinding.inflate(layoutInflater)
@@ -30,6 +47,24 @@ class QuestDetailsActivity : AppCompatActivity(){
         val intent = intent.extras
         val quest = intent?.getSerializable("Quest") as Quest
         setUi(quest)
+        loadStepsData()
+        sensorManager=getSystemService(SENSOR_SERVICE) as SensorManager
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACTIVITY_RECOGNITION) !=
+            PackageManager.PERMISSION_GRANTED){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission
+                    .ACTIVITY_RECOGNITION),200)
+            }
+        }else{
+            running =  true
+            val stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+            if (stepSensor == null){
+                Toast.makeText(this, "Device has not step count sensor", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "Device has step count sensor", Toast.LENGTH_SHORT).show()
+                sensorManager.registerListener(this,stepSensor,SensorManager.SENSOR_DELAY_UI)
+            }
+        }
 
         binding.shareBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
@@ -40,12 +75,40 @@ class QuestDetailsActivity : AppCompatActivity(){
                     "quest \"${quest.name}\" in QuestApp!!!")
             startActivity(Intent.createChooser(intent,"Share Achievement"))
         }
+        quest.tasks?.get(0)?.goalType = "STEPS"
+        quest.tasks?.get(0)?.goalValue = 1000
+        if(quest.tasks?.get(0)?.goalType == "STEPS"){
+            binding.sendResultBtn.text = "Step Counter"
+        }
+        binding.sendResultBtn.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.steps_counter_dialog)
+            val progressbar = dialog.findViewById<ProgressBar>(R.id.progressBar)
+            progressbar.progress = (totalSteps/quest.tasks?.get(0)?.goalValue!!).toInt()
+            val current = dialog.findViewById<TextView>(R.id.current_tv)
+            val closeBtn = dialog.findViewById<Button>(R.id.close_dialog_btn)
+            current.text = totalSteps.toString()
+            dialog.show()
+            closeBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
         binding.taskGoal.setOnClickListener {
             val integrator = IntentIntegrator(this)
             integrator.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
             integrator.initiateScan()
         }
     }
+
+    private fun loadStepsData() {
+        val steps = Prefs.getFloat("STEPS",0f)
+        previousSteps = steps
+        binding.taskTime.text = previousSteps.toString()
+    }
+
+//    override fun onResume() {
+//        super.onResume()
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -154,5 +217,28 @@ class QuestDetailsActivity : AppCompatActivity(){
         binding.audioItem.mediaName.setOnClickListener {
 
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED && requestCode == 200){
+
+        }else{
+            ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACTIVITY_RECOGNITION)
+        }
+    }
+    override fun onSensorChanged(event: SensorEvent?) {
+        Toast.makeText(this, "changed", Toast.LENGTH_SHORT).show()
+            totalSteps = event!!.values[0]
+            Prefs.putAny("STEPS",totalSteps)
+            binding.taskTime.text = totalSteps.toString()
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+
     }
 }

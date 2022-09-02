@@ -2,20 +2,29 @@ package com.example.quest
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.location.Geocoder
 import android.location.LocationListener
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -37,17 +46,23 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.Period
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
+import java.util.*
 import kotlin.math.ln
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
 
 class MainActivity : AppCompatActivity() {
+    private val CAM_PERMISSION: Int = 125
+    private val IMAGE_CAPTURE_CODE: Int = 124
+    private val pickImage: Int = 123
     lateinit var binding: ActivityMainBinding
     lateinit var accessToken: String
     lateinit var currentLocation: LatLng
@@ -58,6 +73,9 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var currentTask: List<TaskListItem>
     lateinit var currentQuest: QuestsList
+
+    var vFilename: String = ""
+    lateinit var image_uri:Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +97,27 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("Quest",currentQuest)
             startActivity(intent)
         }
+        binding.contentMain.profileIv?.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.image_picker_dialog)
+            val camera = dialog.findViewById<ImageView>(R.id.camera)
+            val gallery = dialog.findViewById<ImageView>(R.id.gallery)
+            val closeBtn = dialog.findViewById<Button>(R.id.close_dialog_btn)
+            dialog.show()
+            gallery.setOnClickListener {
+                dialog.dismiss()
+                val gall = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                startActivityForResult(gall, pickImage)
+            }
+            camera.setOnClickListener{
+                dialog.dismiss()
+                openCamera()
+            }
+            closeBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+
+        }
         setMaps()
         setRecyclerView()
         setUserProfile()
@@ -87,49 +126,102 @@ class MainActivity : AppCompatActivity() {
        binding.contentMain.tasksSequence?.setAdapter(SequenceAdapt(currentTask))
     }
     fun getWeather(city: String){
-        CoroutineScope(Dispatchers.IO).launch {
-            val weatherInfo: WeatherInfo = ApiService.getWeather(accessToken,city.lowercase())
-            withContext(Dispatchers.Main){
-                binding.contentMain.weatherCard?.pressureTv?.text = weatherInfo.pressure.toString()
-                binding.contentMain.weatherCard?.humidityTv?.text = weatherInfo.humidity
-                binding.contentMain.weatherCard?.windTv?.text = weatherInfo.windSpeed.toString()
-                val temp = (((weatherInfo.temperature-32)*5)
-                        /9).roundToLong()
-                binding.contentMain.weatherCard?.tempTv?.text = temp.toString()
-                binding.contentMain.weatherCard?.dateTv?.text = LocalDate.now().format(
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val weatherInfo: WeatherInfo =
+                        ApiService.getWeather(accessToken, city.lowercase())
+                    withContext(Dispatchers.Main) {
+                        binding.contentMain.weatherCard?.pressureTv?.text =
+                            weatherInfo.pressure.toString()
+                        binding.contentMain.weatherCard?.humidityTv?.text = weatherInfo.humidity
+                        binding.contentMain.weatherCard?.windTv?.text =
+                            weatherInfo.windSpeed.toString()
+                        val temp = (((weatherInfo.temperature - 32) * 5)
+                                / 9).roundToLong()
+                        binding.contentMain.weatherCard?.tempTv?.text = temp.toString()
+                        binding.contentMain.weatherCard?.dateTv?.text = LocalDate.now().format(
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                        )
+                    }
+                } catch (exception: Exception) {
+                    Log.i("Exception", exception.localizedMessage)
+                }
             }
+
+    }
+    private fun openCamera() {
+
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(
+                    Manifest.permission
+                        .CAMERA
+                ), CAM_PERMISSION
+            )
+        }else {
+
+            Toast.makeText(this, "inside 2", Toast.LENGTH_SHORT).show()
+            val values = ContentValues()
+            values.put(MediaStore.Images.Media.TITLE, "New Picture")
+            values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+
+            //camera intent
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+            // set filename
+            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+            vFilename = "FOTO_" + timeStamp + ".jpg"
+
+            // set direcory folder
+            val file = File(Environment.getExternalStorageDirectory().path, vFilename);
+             image_uri = FileProvider.getUriForFile(
+                this,
+                this.getApplicationContext().getPackageName() + ".provider",
+                file
+            );
+
+            // cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+            startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
         }
-
-
     }
     fun setUserProfile(){
         CoroutineScope(Dispatchers.Main).launch {
-            val profile:Profile = ApiService.getUserProfile(accessToken).body() as Profile
-            (profile.content.firstName +" "+ profile.content.lastName).also { binding.contentMain
-                .nameTv?.text = it }
-            binding.contentMain.profileIv?.let {
-                Glide.with(this@MainActivity).load(profile.content.avatar).into(
-                    it
-                )
-            }
-            val quests = profile.content.completedQuests?.filter {
-                it.tasks?.any { task->
-                    task.status == "COMPLETED" || task.status == "IN-PROGRESS"
+            try {
+                val profile: Profile = ApiService.getUserProfile(accessToken).body() as Profile
+                (profile.content.firstName + " " + profile.content.lastName).also {
+                    binding.contentMain
+                        .nameTv?.text = it
+                }
+                binding.contentMain.profileIv?.let {
+                    Glide.with(this@MainActivity).load(profile.content.avatar).into(
+                        it
+                    )
+                }
+                val quests = profile.content.completedQuests?.filter {
+                    it.tasks?.any { task ->
+                        task.status == "COMPLETED" || task.status == "IN-PROGRESS"
 
-                } ?: false
-            }
-            if (quests != null) {
-                calculateLevel(quests)
+                    } ?: false
+                }
+                if (quests != null) {
+                    currentTask = quests[0].tasks!!
+                    setSequence()
+                    val level = calculateLevel(quests)
+                    binding.contentMain.levelTv?.text = level.toString()
+                    binding.contentMain.levelNumberTv?.text = level.toString()
+                }
+            }catch (excption:Exception){
+                Log.i("RUNTIMEEXCEPTION",excption.localizedMessage)
             }
         }
     }
-    fun calculateLevel(quests: List<Quest>){
+    fun calculateLevel(quests: List<Quest>):Int{
         var questPoints:Double = 0.0
-        currentTask = quests[0].tasks!!
-        setSequence()
         quests.forEach {
-            Log.i("QUESTNAME",it.name)
             var tasksPoints:Double =0.0
             it.tasks?.forEach { task ->
                 if(task.status == "COMPLETED"){
@@ -141,12 +233,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             questPoints += it.difficulty?.times(tasksPoints) ?: 0.0
-
         }
         Log.i("QUESTNAME", "questPoints$questPoints")
-        var level = (ln((questPoints/5)+1)+1).roundToInt()
-        binding.contentMain.levelTv?.text = level.toString()
-        binding.contentMain.levelNumberTv?.text = level.toString()
+       return (ln((questPoints/5)+1)+1).roundToInt()
     }
     fun setRecyclerView(){
         binding.contentMain.questsRecycler?.layoutManager = GridLayoutManager(this , 2,
@@ -246,9 +335,48 @@ class MainActivity : AppCompatActivity() {
                 10f,
                 locListner
             )
-        } else {
+        } else if(grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == CAM_PERMISSION){
+            openCamera()
+        }else{
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            val imageUri = data?.data
+            Toast.makeText(this, "imamge: $imageUri", Toast.LENGTH_SHORT).show()
+            Log.i("IMAGE","imamge: $imageUri")
+            binding.contentMain.profileIv?.setImageURI(imageUri)
+        }
+        Log.i("IMAGEss","imamge: $requestCode ${data?.extras}")
+        if (requestCode == IMAGE_CAPTURE_CODE) {
+            val imageUri = data?.data
+            Log.i("IMAGEss","imamge: $imageUri")
+            Log.i("IMAGEss","imamge: ${data?.extras?.get("data")}")
+            binding.contentMain.profileIv?.setImageURI(data?.extras?.get("data") as Uri?)
+            /*val file = File(Environment.getExternalStorageDirectory().getPath(), vFilename);
+            //val uri = FileProvider.getUriForFile(this, this.getApplicationContext()
+             //   .getPackageName() + ".provider", file);
+           *//* Toast.makeText(this, "imamge: $uri", Toast.LENGTH_SHORT).show()
+            Log.i("IMAGEss","imamge: $uri")*//*
+            //binding.contentMain.profileIv?.setImageBitmap(image_uri)
+            //binding.contentMain.profileIv?.setImageURI(uri)
+//            val file = File(Environment.getExternalStorageDirectory().path, "photo.jpg")
+            val uri = Uri.fromFile(file)
+            var bitmap: Bitmap?
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+                binding.contentMain.profileIv?.setImageBitmap(bitmap)
+            } catch (e: FileNotFoundException) {
+
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }*/
+        }
+
     }
 
 }
