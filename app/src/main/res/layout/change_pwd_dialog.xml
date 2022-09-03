@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_bg"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change password"
+        android:textColor="@color/text_color"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/password_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:hint="New Password"
+        android:layout_marginTop="16dp"
+        android:textColorHint="#787A7A"
+        android:backgroundTint="@color/text_color"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView10"
+        />
+
+    <EditText
+        android:id="@+id/repeat_pwd_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/text_color"
+        android:textColorHint="#787A7A"
+        android:inputType="textPassword"
+        android:hint="Repeat password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password_et"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/close_dialog_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:textSize="12sp"
+        android:textColor="@color/text_color"
+        android:background="#00000000"
+        app:layout_constraintBottom_toBottomOf="@+id/change_dlg_btn"
+        app:layout_constraintEnd_toStartOf="@+id/change_dlg_btn"
+        app:layout_constraintTop_toTopOf="@+id/change_dlg_btn" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/change_dlg_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change"
+        android:textSize="12sp"
+        android:textColor="@color/text_color"
+        android:background="#00000000"
+        app:layout_constraintTop_toBottomOf="@id/repeat_pwd_et"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,12 +62,12 @@ class PopularQuestsAdapter(val quests: List<Quest>, val from:String): RecyclerVi
                     fav = !fav
                 }
             }
-            holder.questDetailsTv.setOnClickListener {
-                val intent = Intent(holder.itemView.context,QuestDetailsActivity::class.java)
-                intent.putExtra("Quest",quests[position])
-                holder.itemView.context.startActivity(intent)
-            }
 
+        }
+        holder.questDetailsTv.setOnClickListener {
+            val intent = Intent(holder.itemView.context,QuestDetailsActivity::class.java)
+            intent.putExtra("Quest",quests[position])
+            holder.itemView.context.startActivity(intent)
         }
     }
     fun isItFav(id: Int, name: String, context: Context):Boolean{
@@ -112,19 +112,6 @@ class PopularQuestsAdapter(val quests: List<Quest>, val from:String): RecyclerVi
                 quest.tags?.let { Photo(it) },
                 quest.tasks?.let { DummyTask(it) })
             QuestDatabase.getDatabaseInstance(context).getDao().insert(newQuest)
-//            withContext(Dispatchers.Main) {
-//                if(i>0){
-//                    AlertHelper.showAlert(context,"Added","Quest added to favourites")
-//                }else{
-//                    AlertHelper.showAlert(context,"Error","Adding to favourites error")
-//                }
-//                dbQuest.observe() { list ->
-//                    list.forEach {
-//                        Log.i("LSTQUEST", it.name)
-//                    }
-//
-//                }
-//            }
         }
     }
     override fun getItemCount(): Int {

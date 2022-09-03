@@ -76,7 +76,7 @@ class QuestDetailsActivity : AppCompatActivity(),SensorEventListener{
             startActivity(Intent.createChooser(intent,"Share Achievement"))
         }
         quest.tasks?.get(0)?.goalType = "STEPS"
-        quest.tasks?.get(0)?.goalValue = 1000
+        quest.tasks?.get(0)?.goalValue = 100
         if(quest.tasks?.get(0)?.goalType == "STEPS"){
             binding.sendResultBtn.text = "Step Counter"
         }
@@ -84,10 +84,12 @@ class QuestDetailsActivity : AppCompatActivity(),SensorEventListener{
             val dialog = Dialog(this)
             dialog.setContentView(R.layout.steps_counter_dialog)
             val progressbar = dialog.findViewById<ProgressBar>(R.id.progressBar)
-            progressbar.progress = (totalSteps/quest.tasks?.get(0)?.goalValue!!).toInt()
+            progressbar.progress = ((totalSteps/quest.tasks?.get(0)?.goalValue!!)*100).toInt()
             val current = dialog.findViewById<TextView>(R.id.current_tv)
+            val goal = dialog.findViewById<TextView>(R.id.goal_tv)
             val closeBtn = dialog.findViewById<Button>(R.id.close_dialog_btn)
             current.text = totalSteps.toString()
+            goal.text = quest.tasks?.get(0)?.goalValue.toString()
             dialog.show()
             closeBtn.setOnClickListener {
                 dialog.dismiss()
@@ -103,12 +105,9 @@ class QuestDetailsActivity : AppCompatActivity(),SensorEventListener{
     private fun loadStepsData() {
         val steps = Prefs.getFloat("STEPS",0f)
         previousSteps = steps
-        binding.taskTime.text = previousSteps.toString()
+        totalSteps = steps
+        //binding.taskTime.text = previousSteps.toString()
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -235,7 +234,7 @@ class QuestDetailsActivity : AppCompatActivity(),SensorEventListener{
         Toast.makeText(this, "changed", Toast.LENGTH_SHORT).show()
             totalSteps = event!!.values[0]
             Prefs.putAny("STEPS",totalSteps)
-            binding.taskTime.text = totalSteps.toString()
+            // binding.taskTime.text = totalSteps.toString()
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {

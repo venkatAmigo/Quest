@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView
+    android:id="@+id/achieve_iv"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    app:srcCompat="@drawable/acheivement_img"
+    android:backgroundTint="#00000000"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />

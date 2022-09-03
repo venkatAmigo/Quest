@@ -196,11 +196,11 @@ class MainActivity : AppCompatActivity() {
                     binding.contentMain
                         .nameTv?.text = it
                 }
-                binding.contentMain.profileIv?.let {
-                    Glide.with(this@MainActivity).load(profile.content.avatar).into(
-                        it
-                    )
-                }
+//                binding.contentMain.profileIv?.let {
+//                    Glide.with(this@MainActivity).load(profile.content.avatar).into(
+//                        it
+//                    )
+//                }
                 val quests = profile.content.completedQuests?.filter {
                     it.tasks?.any { task ->
                         task.status == "COMPLETED" || task.status == "IN-PROGRESS"
@@ -355,26 +355,7 @@ class MainActivity : AppCompatActivity() {
             val imageUri = data?.data
             Log.i("IMAGEss","imamge: $imageUri")
             Log.i("IMAGEss","imamge: ${data?.extras?.get("data")}")
-            binding.contentMain.profileIv?.setImageURI(data?.extras?.get("data") as Uri?)
-            /*val file = File(Environment.getExternalStorageDirectory().getPath(), vFilename);
-            //val uri = FileProvider.getUriForFile(this, this.getApplicationContext()
-             //   .getPackageName() + ".provider", file);
-           *//* Toast.makeText(this, "imamge: $uri", Toast.LENGTH_SHORT).show()
-            Log.i("IMAGEss","imamge: $uri")*//*
-            //binding.contentMain.profileIv?.setImageBitmap(image_uri)
-            //binding.contentMain.profileIv?.setImageURI(uri)
-//            val file = File(Environment.getExternalStorageDirectory().path, "photo.jpg")
-            val uri = Uri.fromFile(file)
-            var bitmap: Bitmap?
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
-                binding.contentMain.profileIv?.setImageBitmap(bitmap)
-            } catch (e: FileNotFoundException) {
-
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }*/
+            binding.contentMain.profileIv?.setImageURI(imageUri)
         }
 
     }
