@@ -7,7 +7,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.location.Geocoder
 import android.location.LocationListener
 import android.location.LocationManager
@@ -21,13 +20,13 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.quest.adapters.PopularQuestsAdapter
 import com.example.quest.adapters.SequenceAdapt
 import com.example.quest.databinding.ActivityMainBinding
@@ -47,8 +46,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
@@ -59,7 +56,7 @@ import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
     private val CAM_PERMISSION: Int = 125
     private val IMAGE_CAPTURE_CODE: Int = 124
     private val pickImage: Int = 123
@@ -89,15 +86,31 @@ class MainActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+        binding.main.setTransitionListener(this)
+        binding.button.button.setTransitionListener(this)
+
+        binding.button.minimize.setOnClickListener {
+            if(binding.main.progress == 0f){
+                binding.button.minimize.setBackgroundResource(R.drawable.close)
+                binding.main.transitionToEnd()
+            }else{
+                binding.button.minimize.setBackgroundResource(R.drawable.open)
+                binding.main.transitionToStart()
+            }
+        }
+
+
+
+
         accessToken = Prefs.getString("TOKEN","").toString()
         mapFragment = SupportMapFragment.newInstance()
         supportFragmentManager.beginTransaction().add(R.id.container_view, mapFragment).commit()
-        binding.contentMain.questCard?.detailsTv?.setOnClickListener {
+        binding.include.questCard?.detailsTv?.setOnClickListener {
             val intent = Intent(this,QuestListActivity::class.java)
             intent.putExtra("Quest",currentQuest)
             startActivity(intent)
         }
-        binding.contentMain.profileIv?.setOnClickListener {
+        binding.include.profileIv?.setOnClickListener {
             val dialog = Dialog(this)
             dialog.setContentView(R.layout.image_picker_dialog)
             val camera = dialog.findViewById<ImageView>(R.id.camera)
@@ -123,8 +136,17 @@ class MainActivity : AppCompatActivity() {
         setUserProfile()
     }
     fun setSequence(){
-       binding.contentMain.tasksSequence?.setAdapter(SequenceAdapt(currentTask))
+       binding.include.tasksSequence?.setAdapter(SequenceAdapt(currentTask) { taskNo ->
+           setTask(
+               taskNo
+           )
+       })
     }
+
+    private fun setTask(number: Int) {
+
+    }
+
     fun getWeather(city: String){
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -132,15 +154,15 @@ class MainActivity : AppCompatActivity() {
                     val weatherInfo: WeatherInfo =
                         ApiService.getWeather(accessToken, city.lowercase())
                     withContext(Dispatchers.Main) {
-                        binding.contentMain.weatherCard?.pressureTv?.text =
+                        binding.include.weatherCard?.pressureTv?.text =
                             weatherInfo.pressure.toString()
-                        binding.contentMain.weatherCard?.humidityTv?.text = weatherInfo.humidity
-                        binding.contentMain.weatherCard?.windTv?.text =
+                        binding.include.weatherCard?.humidityTv?.text = weatherInfo.humidity
+                        binding.include.weatherCard?.windTv?.text =
                             weatherInfo.windSpeed.toString()
                         val temp = (((weatherInfo.temperature - 32) * 5)
                                 / 9).roundToLong()
-                        binding.contentMain.weatherCard?.tempTv?.text = temp.toString()
-                        binding.contentMain.weatherCard?.dateTv?.text = LocalDate.now().format(
+                        binding.include.weatherCard?.tempTv?.text = temp.toString()
+                        binding.include.weatherCard?.dateTv?.text = LocalDate.now().format(
                             DateTimeFormatter.ofPattern("yyyy-MM-dd")
                         )
                     }
@@ -193,10 +215,10 @@ class MainActivity : AppCompatActivity() {
             try {
                 val profile: Profile = ApiService.getUserProfile(accessToken).body() as Profile
                 (profile.content.firstName + " " + profile.content.lastName).also {
-                    binding.contentMain
+                    binding.include
                         .nameTv?.text = it
                 }
-//                binding.contentMain.profileIv?.let {
+//                binding.include.profileIv?.let {
 //                    Glide.with(this@MainActivity).load(profile.content.avatar).into(
 //                        it
 //                    )
@@ -211,8 +233,8 @@ class MainActivity : AppCompatActivity() {
                     currentTask = quests[0].tasks!!
                     setSequence()
                     val level = calculateLevel(quests)
-                    binding.contentMain.levelTv?.text = level.toString()
-                    binding.contentMain.levelNumberTv?.text = level.toString()
+                    binding.include.levelTv?.text = level.toString()
+                    binding.include.levelNumberTv?.text = level.toString()
                 }
             }catch (excption:Exception){
                 Log.i("RUNTIMEEXCEPTION",excption.localizedMessage)
@@ -238,7 +260,7 @@ class MainActivity : AppCompatActivity() {
        return (ln((questPoints/5)+1)+1).roundToInt()
     }
     fun setRecyclerView(){
-        binding.contentMain.questsRecycler?.layoutManager = GridLayoutManager(this , 2,
+        binding.include.questsRecycler?.layoutManager = GridLayoutManager(this , 2,
             RecyclerView.VERTICAL,false)
         CoroutineScope(Dispatchers.Main).launch {
             try {
@@ -251,7 +273,7 @@ class MainActivity : AppCompatActivity() {
 
                     val result = response.body() as QuestsList
                     currentQuest = result
-                    binding.contentMain.questsRecycler?.adapter =
+                    binding.include.questsRecycler?.adapter =
                         PopularQuestsAdapter(result.content,"main")
 
                 } else {
@@ -289,7 +311,7 @@ class MainActivity : AppCompatActivity() {
                 val current = coder.getFromLocation(location.latitude, location.longitude, 1)
                 val citys = current.first().locality
                 getWeather(citys)
-                binding.contentMain.weatherCard?.cityTv?.text =  citys
+                binding.include.weatherCard?.cityTv?.text =  citys
                 Toast.makeText(this, citys, Toast.LENGTH_SHORT).show()
             }
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -348,16 +370,51 @@ class MainActivity : AppCompatActivity() {
             val imageUri = data?.data
             Toast.makeText(this, "imamge: $imageUri", Toast.LENGTH_SHORT).show()
             Log.i("IMAGE","imamge: $imageUri")
-            binding.contentMain.profileIv?.setImageURI(imageUri)
+            binding.include.profileIv?.setImageURI(imageUri)
         }
         Log.i("IMAGEss","imamge: $requestCode ${data?.extras}")
         if (requestCode == IMAGE_CAPTURE_CODE) {
             val imageUri = data?.data
             Log.i("IMAGEss","imamge: $imageUri")
             Log.i("IMAGEss","imamge: ${data?.extras?.get("data")}")
-            binding.contentMain.profileIv?.setImageURI(imageUri)
+            binding.include.profileIv?.setImageURI(imageUri)
         }
 
     }
+
+    override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) {
+        updateNestedMotionLayout(motionLayout)
+    }
+
+    override fun onTransitionChange(
+        motionLayout: MotionLayout?,
+        startId: Int,
+        endId: Int,
+        progress: Float
+    ) {
+        updateNestedMotionLayout(motionLayout)
+    }
+
+    override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+        updateNestedMotionLayout(motionLayout)
+    }
+
+    override fun onTransitionTrigger(
+        motionLayout: MotionLayout?,
+        triggerId: Int,
+        positive: Boolean,
+        progress: Float
+    ) {
+        updateNestedMotionLayout(motionLayout)
+    }
+
+    private fun updateNestedMotionLayout(motionLayout: MotionLayout?) {
+        motionLayout.let {
+            if(it?.id == binding.main.id){
+                binding.button.button.progress = it.progress
+            }
+        }
+    }
+
 
 }

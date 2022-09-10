@@ -1,283 +1,477 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".QuestDetailsActivity">
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/lbl1_tv"
-        style="@style/heading_text"
-        android:layout_marginStart="8dp"
-        android:text="Historical quests"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            tools:context=".QuestDetailsActivity">
+
+            <TextView
+                android:id="@+id/lbl1_tv"
+                style="@style/heading_text"
+                android:layout_marginStart="8dp"
+                android:text="Historical quests"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/details_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/card_bg"
+                android:padding="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lbl1_tv">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rating"
+                    app:layout_constraintBottom_toTopOf="@+id/include"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                    android:id="@+id/include"
+                    layout="@layout/rating_stars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/textView9"
+                    app:layout_constraintTop_toBottomOf="@id/textView9" />
+
+                <TextView
+                    android:id="@+id/difficulty_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Difficult :"
+                    app:layout_constraintStart_toStartOf="@id/include"
+                    app:layout_constraintTop_toBottomOf="@id/include" />
+
+                <TextView
+                    android:id="@+id/date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Date"
+                    app:layout_constraintStart_toEndOf="@+id/include"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/user_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User"
+                    app:layout_constraintStart_toStartOf="@+id/date_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/date_tv" />
+
+                <TextView
+                    android:id="@+id/category_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="category"
+                    app:layout_constraintStart_toStartOf="@+id/user_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/user_tv" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/country_btn"
+                    style="@style/selection_btn"
+                    android:text="Russia"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/date_tv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/city_btn"
+                    style="@style/selection_btn"
+                    android:layout_marginTop="8dp"
+                    android:text="Kazan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/country_btn"
+                    app:layout_constraintTop_toBottomOf="@id/country_btn" />
+
+
+                <TextView
+                    android:id="@+id/dates_range_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@color/red"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/difficulty_tv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/desc_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/card_bg"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="@id/details_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/details_card">
+
+                <TextView
+                    android:id="@+id/quest_desc_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textColor="@color/text_color" />
+
+                <TextView
+                    android:id="@+id/quest_desc_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+            </LinearLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_1"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/details_card"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/desc_card"
+                app:layout_constraintTop_toBottomOf="@id/desc_card" />
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:dotsColor="@color/white"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="10dp"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="2.5"
+                app:layout_constraintBottom_toBottomOf="@id/viewpager_1"
+                app:layout_constraintEnd_toEndOf="@id/viewpager_1"
+                app:layout_constraintStart_toStartOf="@id/viewpager_1"
+                app:progressMode="true"
+                app:selectedDotColor="@color/text_color" />
+
+            <LinearLayout
+                android:id="@+id/tasks_lt"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/card_bg"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:layout_marginStart="8dp"
+                android:paddingTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewpager_1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tasks"
+                    android:textColor="@color/text_color" />
+
+                <com.transferwise.sequencelayout.SequenceLayout
+                    android:id="@+id/tasks_sequence"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments_recycler"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/card_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tasks_lt" />
+
+            <LinearLayout
+                android:id="@+id/feedback_lt"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/card_bg"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comments_recycler">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Comment"
+                    android:textColor="@color/text_color" />
+
+                <include
+                    android:id="@+id/feedback_stars"
+                    layout="@layout/rating_stars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/comment_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/green"
+                    android:hint="Enter your message"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/send_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/background_green"
+                    android:text="Send"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/lbl2_tv"
+                style="@style/heading_text"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="Go to WorldSkills 2019"
+                app:layout_constraintStart_toEndOf="@id/details_card"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/status_bg"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:src="@drawable/status_bg"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/status_tv"-->
+<!--                app:layout_constraintStart_toEndOf="@id/lbl2_tv"-->
+<!--                app:layout_constraintTop_toTopOf="@id/lbl2_tv" />-->
+
+            <TextView
+                android:id="@+id/status_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Completed"
+                android:paddingStart="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/status_bg"
+                android:textColor="@color/green"
+                app:layout_constraintStart_toEndOf="@id/lbl2_tv"
+                app:layout_constraintTop_toTopOf="@id/lbl2_tv" />
+
+            <ImageView
+                android:id="@+id/fav_icn"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/fav_stroke"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/lbl2_tv" />
+
+            <TextView
+                android:id="@+id/task_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/task_date"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@id/lbl2_tv"
+                app:layout_constraintTop_toTopOf="@+id/task_date" />
+
+            <TextView
+                android:id="@+id/task_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toStartOf="@+id/task_date"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/task_goal"
+                app:layout_constraintTop_toBottomOf="@id/lbl2_tv"
+                tools:layout_editor_absoluteY="10dp" />
+
+            <TextView
+                android:id="@+id/task_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/task_time"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/task_time"
+                app:layout_constraintTop_toTopOf="@+id/task_time" />
+
+            <LinearLayout
+                android:id="@+id/task_desc_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/card_bg"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:layout_constraintEnd_toStartOf="@id/viewpager_2"
+                app:layout_constraintStart_toStartOf="@id/lbl2_tv"
+                app:layout_constraintTop_toBottomOf="@id/task_goal">
+
+                <TextView
+                    android:id="@+id/task_desc_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textColor="@color/text_color" />
+
+                <TextView
+                    android:id="@+id/task_desc_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/share_btn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/share_icon"
+                app:layout_constraintEnd_toStartOf="@id/send_result_btn"
+                app:layout_constraintTop_toTopOf="@id/send_result_btn" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/send_result_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/background_green"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Send Result"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lbl2_tv" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_2"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/task_desc_card" />
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dots_indicator2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:dotsColor="@color/white"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="10dp"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="2.5"
+                app:layout_constraintBottom_toBottomOf="@id/viewpager_2"
+                app:layout_constraintEnd_toEndOf="@id/viewpager_2"
+                app:layout_constraintStart_toStartOf="@id/viewpager_2"
+                app:progressMode="true"
+                app:selectedDotColor="@color/text_color" />
+
+            <include
+                android:id="@+id/videoItem"
+                layout="@layout/meadia_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/viewpager_2"
+                app:layout_constraintStart_toStartOf="@id/viewpager_2"
+                app:layout_constraintTop_toBottomOf="@id/viewpager_2" />
+
+            <include
+                android:id="@+id/audioItem"
+                layout="@layout/meadia_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/viewpager_2"
+                app:layout_constraintStart_toStartOf="@id/viewpager_2"
+                app:layout_constraintTop_toBottomOf="@id/videoItem" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/details_card"
-        android:layout_width="wrap_content"
+        android:id="@+id/audio_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/card_bg"
-        android:padding="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lbl1_tv">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        android:visibility="gone"
+        android:background="#2C2C2D"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rating"
-            app:layout_constraintBottom_toTopOf="@+id/include"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/play_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/play_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/rating_stars"
-            android:layout_width="wrap_content"
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/textView9"
-            app:layout_constraintTop_toBottomOf="@id/textView9" />
+            app:layout_constraintBottom_toBottomOf="@id/play_btn"
+            app:layout_constraintEnd_toStartOf="@id/song_progress_tv"
+            app:layout_constraintStart_toEndOf="@id/play_btn"
+            app:layout_constraintTop_toTopOf="@id/play_btn" />
 
         <TextView
-            android:id="@+id/difficulty_tv"
+            android:id="@+id/song_progress_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Difficult :"
-            app:layout_constraintStart_toStartOf="@id/include"
-            app:layout_constraintTop_toBottomOf="@id/include" />
+            android:text="00:20"
+            android:textColor="@color/green"
+            app:layout_constraintBottom_toBottomOf="@id/seekbar"
+            app:layout_constraintEnd_toStartOf="@id/song_duration_tv"
+            app:layout_constraintStart_toEndOf="@id/seekbar"
+            app:layout_constraintTop_toTopOf="@id/seekbar" />
 
         <TextView
-            android:id="@+id/date_tv"
+            android:id="@+id/song_duration_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Date"
-            app:layout_constraintStart_toEndOf="@+id/include"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/user_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User"
-            app:layout_constraintStart_toStartOf="@+id/date_tv"
-            app:layout_constraintTop_toBottomOf="@+id/date_tv" />
-
-        <TextView
-            android:id="@+id/category_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="category"
-            app:layout_constraintStart_toStartOf="@+id/user_tv"
-            app:layout_constraintTop_toBottomOf="@+id/user_tv" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/country_btn"
-            style="@style/selection_btn"
-            android:text="Russia"
+            android:text="/00:20"
+            android:textColor="@color/green"
+            app:layout_constraintBottom_toBottomOf="@id/seekbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/date_tv"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/city_btn"
-            style="@style/selection_btn"
-            android:layout_marginTop="8dp"
-            android:text="Kazan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/country_btn"
-            app:layout_constraintTop_toBottomOf="@id/country_btn" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/dates_range_tv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="TextView"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/difficulty_tv" />-->
+            app:layout_constraintStart_toEndOf="@id/song_progress_tv"
+            app:layout_constraintTop_toTopOf="@id/seekbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/desc_card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/card_bg"
-        android:orientation="vertical"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="@id/details_card"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/details_card">
-
-        <TextView
-            android:id="@+id/quest_desc_lbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:text="Description" />
-
-        <TextView
-            android:id="@+id/quest_desc_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-    </LinearLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager_1"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@id/details_card"
-        app:layout_constraintStart_toStartOf="@id/desc_card"
-        app:layout_constraintTop_toBottomOf="@id/desc_card" />
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/dots_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:dotsColor="@color/white"
-        app:dotsCornerRadius="8dp"
-        app:dotsSize="10dp"
-        app:dotsSpacing="4dp"
-        app:dotsWidthFactor="2.5"
-        app:layout_constraintStart_toStartOf="@id/viewpager_1"
-        app:layout_constraintEnd_toEndOf="@id/viewpager_1"
-        app:layout_constraintBottom_toBottomOf="@id/viewpager_1"
-        app:progressMode="true"
-        app:selectedDotColor="@color/text_color" />
-    <TextView
-        android:id="@+id/lbl2_tv"
-        style="@style/heading_text"
-        android:layout_marginStart="8dp"
-        android:text="Go to WorldSkills 2019"
-        app:layout_constraintStart_toEndOf="@id/details_card"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/task_goal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/task_date"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@id/lbl2_tv"
-        app:layout_constraintTop_toTopOf="@+id/task_date" />
-
-    <TextView
-        android:id="@+id/task_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginStart="8dp"
-        app:layout_constraintTop_toBottomOf="@id/lbl2_tv"
-        app:layout_constraintEnd_toStartOf="@+id/task_date"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/task_goal"
-        tools:layout_editor_absoluteY="10dp" />
-
-    <TextView
-        android:id="@+id/task_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/task_time"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/task_time"
-        app:layout_constraintTop_toTopOf="@+id/task_time" />
-
-    <LinearLayout
-        android:id="@+id/task_desc_card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/card_bg"
-        android:orientation="vertical"
-        android:padding="8dp"
-        app:layout_constraintEnd_toStartOf="@id/viewpager_2"
-        app:layout_constraintStart_toStartOf="@id/lbl2_tv"
-        app:layout_constraintTop_toBottomOf="@id/task_goal">
-
-        <TextView
-            android:id="@+id/task_desc_lbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:text="Description" />
-
-        <TextView
-            android:id="@+id/task_desc_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-    </LinearLayout>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/share_btn"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:layout_constraintTop_toTopOf="@id/send_result_btn"
-        app:layout_constraintEnd_toStartOf="@id/send_result_btn"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/share_icon"
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/send_result_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        app:layout_constraintTop_toBottomOf="@id/lbl2_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/background_green"
-        android:text="Send Result"
-        android:textAllCaps="false" />
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager_2"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="8dp"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/task_desc_card" />
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/dots_indicator2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:dotsColor="@color/white"
-        app:dotsCornerRadius="8dp"
-        app:dotsSize="10dp"
-        app:dotsSpacing="4dp"
-        app:dotsWidthFactor="2.5"
-        app:layout_constraintStart_toStartOf="@id/viewpager_2"
-        app:layout_constraintEnd_toEndOf="@id/viewpager_2"
-        app:layout_constraintBottom_toBottomOf="@id/viewpager_2"
-        app:progressMode="true"
-        app:selectedDotColor="@color/text_color" />
-    <include
-        android:id="@+id/videoItem"
-        layout="@layout/meadia_item"
-        app:layout_constraintStart_toStartOf="@id/viewpager_2"
-        app:layout_constraintEnd_toEndOf="@id/viewpager_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/viewpager_2"
-        android:layout_marginTop="8dp"
-        />
-    <include
-        android:id="@+id/audioItem"
-        layout="@layout/meadia_item"
-        app:layout_constraintStart_toStartOf="@id/viewpager_2"
-        app:layout_constraintEnd_toEndOf="@id/viewpager_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/videoItem"
-        android:layout_marginTop="8dp"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

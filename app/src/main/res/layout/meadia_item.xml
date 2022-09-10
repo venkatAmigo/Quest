@@ -25,13 +25,4 @@
         app:layout_constraintStart_toEndOf="@id/meadia_ic"
         android:text="TextView" />
 
-    <TextView
-        android:id="@+id/media_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        app:layout_constraintTop_toTopOf="@id/media_name"
-        app:layout_constraintStart_toEndOf="@id/media_name"
-        android:layout_marginStart="8dp"
-        android:text="TextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

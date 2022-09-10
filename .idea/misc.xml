@@ -7,8 +7,10 @@
         <entry key="app/src/main/res/drawable/background_green.xml" value="0.2235" />
         <entry key="app/src/main/res/drawable/card_bg.xml" value="0.2235" />
         <entry key="app/src/main/res/drawable/circle_bg.xml" value="0.2235" />
+        <entry key="app/src/main/res/drawable/open.xml" value="0.2615" />
         <entry key="app/src/main/res/drawable/selection_button.xml" value="0.2235" />
         <entry key="app/src/main/res/layout-land/content_main.xml" value="0.22608642578125002" />
+        <entry key="app/src/main/res/layout-land/side_menu.xml" value="0.1" />
         <entry key="app/src/main/res/layout-land/slider_one.xml" value="0.2949255537944706" />
         <entry key="app/src/main/res/layout/achievement_item.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/achievements_item.xml" value="0.29393115942028986" />
@@ -18,7 +20,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23375701904296878" />
         <entry key="app/src/main/res/layout/activity_onboard.xml" value="0.17447916666666666" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.19327424072013671" />
-        <entry key="app/src/main/res/layout/activity_quest_details.xml" value="0.2657821655273438" />
+        <entry key="app/src/main/res/layout/activity_quest_details.xml" value="0.24382781982421875" />
         <entry key="app/src/main/res/layout/activity_quest_list.xml" value="0.2789833567621633" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.35" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.29393115942028986" />
@@ -26,6 +28,7 @@
         <entry key="app/src/main/res/layout/change_pwd_dialog.xml" value="0.4559412638346353" />
         <entry key="app/src/main/res/layout/circle_edit.xml" value="0.6277659098307292" />
         <entry key="app/src/main/res/layout/city_dialog.xml" value="0.17447916666666666" />
+        <entry key="app/src/main/res/layout/comment_item.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/crousal_item.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.17552083333333332" />
@@ -38,6 +41,7 @@
         <entry key="app/src/main/res/layout/quests_fav_item.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/layout/rating_item.xml" value="0.24095764160156252" />
         <entry key="app/src/main/res/layout/rating_stars.xml" value="0.19579533941236069" />
+        <entry key="app/src/main/res/layout/side_menu.xml" value="0.16869300911854104" />
         <entry key="app/src/main/res/layout/steps_counter_dialog.xml" value="0.40583902994791665" />
         <entry key="app/src/main/res/layout/video_dialog.xml" value="0.18884124755859377" />
         <entry key="app/src/main/res/layout/weather_card.xml" value="0.29393115942028986" />

@@ -14,11 +14,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/playPauseButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/play_icon"
+        android:background="@drawable/play_icon"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="5dp"
@@ -34,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/play_icon"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_toRightOf="@id/playPauseButton" />
 

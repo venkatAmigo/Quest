@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#2C2C2D"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cmt_profile_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/cmt_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/green"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@+id/cmt_profile_iv"
+        app:layout_constraintTop_toTopOf="@+id/cmt_profile_iv" />
+
+    <include
+        android:id="@+id/rating_stars"
+        layout="@layout/rating_stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/cmt_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/cmt_name_tv" />
+
+    <TextView
+        android:id="@+id/cmt_comment_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/rating_stars"
+        app:layout_constraintTop_toBottomOf="@+id/rating_stars" />
+
+    <TextView
+        android:id="@+id/cmt_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cmt_name_tv" />
+</androidx.constraintlayout.widget.ConstraintLayout>

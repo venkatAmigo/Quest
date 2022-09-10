@@ -25,7 +25,8 @@ class MainFunctions {
             questPoints += it.difficulty?.times(tasksPoints) ?: 0.0
 
         }
-        return (ln((questPoints/5)+1) +1).roundToInt()
         System.out.println("points"+questPoints)
+        return (ln((questPoints/5)+1) +1).roundToInt()
+
     }
 }

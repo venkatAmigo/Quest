@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@id/button"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@id/content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            motion:layout_constraintLeft_toRightOf="@+id/button"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintWidth_default="percent"
+            motion:layout_constraintWidth_percent="1" />
+        <Constraint
+            android:id="@+id/include"
+            motion:layout_constraintStart_toEndOf="@id/button"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@id/button"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@id/content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            motion:layout_constraintLeft_toRightOf="@+id/button"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintWidth_default="percent"
+            motion:layout_constraintWidth_percent="1" />
+        <Constraint
+            app:layout_constraintStart_toEndOf="@+id/button"
+            android:id="@+id/include"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            />
+
+    </ConstraintSet>
+
+    <Transition
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="250"
+        app:motionInterpolator="linear"
+        >
+        <OnSwipe app:dragDirection="dragRight"
+            app:touchAnchorId="@style/button"
+            app:touchAnchorSide="right"/>
+    </Transition>
+</MotionScene>

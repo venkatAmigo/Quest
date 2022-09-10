@@ -72,7 +72,7 @@ data class TaskListItem(
     var name: String,
     var status: String,
     var goalType: String,
-    val taskCompletionTime: Int? = null,
+    var taskCompletionTime: Int? = null,
     var startDate: String? = null,
     var endDate: String? = null,
     var goalValue: Int? = null,

@@ -10,4 +10,11 @@
     <color name="red">#FF8980</color>
     <color name="green">#3CDDCE</color>
     <color name="text_color">#00E1C2</color>
+
+    <color name="level1">#FFF</color>
+    <color name="level2">#BFF196</color>
+    <color name="level3">#90E59C</color>
+    <color name="level4">#5ED7A6</color>
+    <color name="level5">@color/text_color</color>
+
 </resources>

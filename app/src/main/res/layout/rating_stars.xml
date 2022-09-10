@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/star_two"
         app:layout_constraintHorizontal_bias="0.5"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/start_stroke" />
 
     <ImageView
         android:id="@+id/star_two"
@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toStartOf="@+id/star_three"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/start_one"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/start_stroke"  />
 
     <ImageView
         android:id="@+id/star_three"
@@ -35,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/star_two"
         app:layout_constraintTop_toTopOf="@+id/star_two"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/start_stroke"  />
 
     <ImageView
         android:id="@+id/star_four"
@@ -46,12 +46,12 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/star_three"
         app:layout_constraintTop_toTopOf="@+id/star_three"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/start_stroke"  />
 
     <ImageView
         android:id="@+id/star_five"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_width="16dp"
+        android:layout_height="21dp"
         app:layout_constraintBottom_toBottomOf="@+id/star_four"
         app:layout_constraintEnd_toStartOf="@+id/start_one"
         app:layout_constraintHorizontal_bias="0.5"

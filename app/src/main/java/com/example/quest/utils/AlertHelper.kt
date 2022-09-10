@@ -10,10 +10,11 @@ class AlertHelper {
             val builder = AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(msg)
-            val alert = builder.create()
+            //val alert = builder.create()
             builder.setPositiveButton("OK") { dialog, _ ->
-                alert.dismiss()
+                builder.create().dismiss()
             }
+            builder.show()
         }
     }
 }

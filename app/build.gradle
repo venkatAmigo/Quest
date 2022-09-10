@@ -14,7 +14,6 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -50,6 +49,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.5.1'
+    testImplementation 'junit:junit:4.12'
     kapt 'androidx.room:room-compiler:2.4.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -74,5 +74,9 @@ dependencies {
     implementation("com.tbuonomo:dotsindicator:4.3")
 
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    androidTestImplementation ("com.android.support.test.espresso:espresso-intents:3.0.2")
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.4.0'
 
 }
