@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit
 @RunWith(AndroidJUnit4::class)
 class LoginActivityTest {
 
+    //Session 6 Login UI testing in this file
     @get:Rule
     val activityRule = ActivityScenarioRule(LoginActivity::class.java)
 
