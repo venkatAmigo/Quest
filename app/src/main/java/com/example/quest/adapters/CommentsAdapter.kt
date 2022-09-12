@@ -25,7 +25,10 @@ class CommentsAdapter(val comments:List<Content>): RecyclerView.Adapter<Comments
        holder.nameTv.text = comments[position].author.name
         holder.commentTv.text = comments[position].text
         holder.dateTv.text = comments[position].date
-        Glide.with(holder.itemView.context).load(comments[position].author.avatar).into(holder.profile)
+        Glide.with(holder.itemView.context).load(comments[position].author.avatar).error(R
+            .drawable.avatar_placeholder)
+            .into(holder
+            .profile)
         val starOne = holder.starsLt.findViewById<ImageView>(R.id.start_one)
         val starTwo = holder.starsLt.findViewById<ImageView>(R.id.star_two)
         val starThree = holder.starsLt.findViewById<ImageView>(R.id.star_three)
@@ -38,7 +41,7 @@ class CommentsAdapter(val comments:List<Content>): RecyclerView.Adapter<Comments
             starFour,
             starFive
         )
-        for (i in 0..(comments[position].rating-1)) {
+        for (i in 0 until comments[position].rating) {
             a[i].setImageResource(R.drawable.star)
         }
         for (i in (comments[position].rating)..4) {
@@ -51,7 +54,7 @@ class CommentsAdapter(val comments:List<Content>): RecyclerView.Adapter<Comments
     class CommentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val profile = itemView.findViewById<CircleImageView>(R.id.cmt_profile_iv)
         val nameTv = itemView.findViewById<TextView>(R.id.cmt_name_tv)
-        val commentTv = itemView.findViewById<TextView>(R.id.cmt_comment_tv)
+        val commentTv: TextView = itemView.findViewById(R.id.cmt_comment_tv)
         val dateTv = itemView.findViewById<TextView>(R.id.cmt_date_tv)
         val starsLt = itemView.findViewById<ConstraintLayout>(R.id.rating_stars)
     }

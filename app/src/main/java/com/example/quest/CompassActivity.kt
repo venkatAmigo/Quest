@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.quest.databinding.ActivityCompassBinding
 
+//This file is part of Session - 2
 class CompassActivity : AppCompatActivity() ,SensorEventListener{
     lateinit var sensorManager: SensorManager
     lateinit var accelerometer: Sensor

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="8dp"
+    tools:context=".RatingActivity">
+    <TextView
+        android:id="@+id/lbl1_tv"
+        style="@style/heading_text"
+        android:text="Rating"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/lbl2_tv"
+        style="@style/heading_text"
+        android:text="Top Players"
+        app:layout_constraintStart_toStartOf="@id/lbl1_tv"
+        app:layout_constraintTop_toBottomOf="@id/lbl1_tv" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/top_players_recycle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        tools:listitem="@layout/rating_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/top_authors_recycle"
+        app:layout_constraintStart_toStartOf="@id/lbl2_tv"
+        app:layout_constraintTop_toBottomOf="@id/lbl2_tv" />
+
+    <TextView
+        android:id="@+id/lbl3_tv"
+        style="@style/heading_text"
+        android:text="Top authors"
+        app:layout_constraintStart_toStartOf="@id/top_authors_recycle"
+        app:layout_constraintTop_toTopOf="@id/lbl2_tv"
+
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/top_authors_recycle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        tools:listitem="@layout/rating_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/top_players_recycle"
+        app:layout_constraintTop_toTopOf="@id/top_players_recycle" />
+</androidx.constraintlayout.widget.ConstraintLayout>

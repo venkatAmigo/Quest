@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
     lateinit var currentQuest: QuestsList
 
     var vFilename: String = ""
-    lateinit var image_uri:Uri
+    private lateinit var imageUri:Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+        setupUI()
         binding.main.setTransitionListener(this)
         binding.button.button.setTransitionListener(this)
 
@@ -135,7 +136,23 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
         setRecyclerView()
         setUserProfile()
     }
-    fun setSequence(){
+
+    private fun setupUI() {
+        binding.button.iconCompass.setOnClickListener {
+            startActivity(Intent(this,CompassActivity::class.java))
+        }
+        binding.button.textCompass.setOnClickListener {
+            startActivity(Intent(this,CompassActivity::class.java))
+        }
+        binding.button.iconRatings.setOnClickListener {
+            startActivity(Intent(this,RatingActivity::class.java))
+        }
+        binding.button.textRatings.setOnClickListener {
+            startActivity(Intent(this,RatingActivity::class.java))
+        }
+    }
+
+    private fun setSequence(){
        binding.include.tasksSequence?.setAdapter(SequenceAdapt(currentTask) { taskNo ->
            setTask(
                taskNo
@@ -147,7 +164,7 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
 
     }
 
-    fun getWeather(city: String){
+    private fun getWeather(city: String){
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {
@@ -200,7 +217,7 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
 
             // set direcory folder
             val file = File(Environment.getExternalStorageDirectory().path, vFilename);
-             image_uri = FileProvider.getUriForFile(
+             imageUri = FileProvider.getUriForFile(
                 this,
                 this.getApplicationContext().getPackageName() + ".provider",
                 file
@@ -210,7 +227,7 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
             startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
         }
     }
-    fun setUserProfile(){
+    private fun setUserProfile(){
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val profile: Profile = ApiService.getUserProfile(accessToken).body() as Profile
@@ -241,7 +258,9 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
             }
         }
     }
-    fun calculateLevel(quests: List<Quest>):Int{
+
+    //This function is part of Session - 2 calculating level of the player
+    private fun calculateLevel(quests: List<Quest>):Int{
         var questPoints:Double = 0.0
         quests.forEach {
             var tasksPoints:Double =0.0
@@ -259,7 +278,7 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
         Log.i("QUESTNAME", "questPoints$questPoints")
        return (ln((questPoints/5)+1)+1).roundToInt()
     }
-    fun setRecyclerView(){
+    private fun setRecyclerView(){
         binding.include.questsRecycler?.layoutManager = GridLayoutManager(this , 2,
             RecyclerView.VERTICAL,false)
         CoroutineScope(Dispatchers.Main).launch {
@@ -286,13 +305,13 @@ class MainActivity : AppCompatActivity(), MotionLayout.TransitionListener {
                     ).show()
                 }
             }catch (exc :Exception){
-                Log.i("FRE","exception ${exc.localizedMessage}")
+                Log.i("FREEXC","exception ${exc.localizedMessage}")
                 Toast.makeText(this@MainActivity, "exception ${exc.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    fun setMaps() {
+    private fun setMaps() {
         mapFragment.getMapAsync { imap ->
             map = imap
             imap.mapType = MAP_TYPE_SATELLITE

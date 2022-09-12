@@ -21,10 +21,12 @@
         <entry key="app/src/main/res/layout/activity_onboard.xml" value="0.17447916666666666" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.19327424072013671" />
         <entry key="app/src/main/res/layout/activity_quest_details.xml" value="0.24382781982421875" />
-        <entry key="app/src/main/res/layout/activity_quest_list.xml" value="0.2789833567621633" />
+        <entry key="app/src/main/res/layout/activity_quest_list.xml" value="0.7629440307617188" />
+        <entry key="app/src/main/res/layout/activity_rating.xml" value="0.2723175048828125" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.35" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/activity_video.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/layout/add_tag.xml" value="0.17447916666666666" />
         <entry key="app/src/main/res/layout/change_pwd_dialog.xml" value="0.4559412638346353" />
         <entry key="app/src/main/res/layout/circle_edit.xml" value="0.6277659098307292" />
         <entry key="app/src/main/res/layout/city_dialog.xml" value="0.17447916666666666" />

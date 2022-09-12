@@ -33,18 +33,18 @@
         app:layout_constraintTop_toTopOf="@id/icon_post" />
 
     <ImageView
-        android:id="@+id/icon_accounts"
+        android:id="@+id/icon_ratings"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_launcher_background"
-        app:layout_constraintEnd_toStartOf="@+id/text_accounts"
+        app:layout_constraintEnd_toStartOf="@+id/text_ratings"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/icon_post" />
 
     <TextView
-        android:id="@+id/text_accounts"
+        android:id="@+id/text_ratings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chat"
@@ -52,8 +52,8 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/icon_accounts"
-        app:layout_constraintTop_toTopOf="@id/icon_accounts" />
+        app:layout_constraintStart_toEndOf="@+id/icon_ratings"
+        app:layout_constraintTop_toTopOf="@id/icon_ratings" />
 
     <ImageView
         android:id="@+id/icon_history"
@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toStartOf="@+id/text_history"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/icon_accounts" />
+        app:layout_constraintTop_toBottomOf="@id/icon_ratings" />
 
     <TextView
         android:id="@+id/text_history"
@@ -79,18 +79,18 @@
         app:layout_constraintTop_toTopOf="@id/icon_history" />
 
     <ImageView
-        android:id="@+id/icon_settings"
+        android:id="@+id/icon_compass"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_launcher_background"
-        app:layout_constraintEnd_toStartOf="@+id/text_settings"
+        app:layout_constraintEnd_toStartOf="@+id/text_compass"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/icon_history" />
 
     <TextView
-        android:id="@+id/text_settings"
+        android:id="@+id/text_compass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ratings"
@@ -98,7 +98,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/icon_settings"
+        app:layout_constraintStart_toEndOf="@+id/icon_compass"
         tools:layout_editor_absoluteY="153dp" />
 
     <TextView

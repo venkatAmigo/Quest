@@ -11,27 +11,13 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change password"
+        android:text="Add new tag"
         android:textColor="@color/text_color"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/password_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:hint="New Password"
-        android:layout_marginTop="16dp"
-        android:textColorHint="#787A7A"
-        android:backgroundTint="@color/text_color"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView10"
-        />
 
     <EditText
         android:id="@+id/add_tag_et"
@@ -40,11 +26,10 @@
         android:textColor="@color/white"
         android:backgroundTint="@color/text_color"
         android:textColorHint="#787A7A"
-        android:inputType="textPassword"
-        android:hint="Repeat password"
+        android:hint="Enter tag name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_et"
+        app:layout_constraintTop_toBottomOf="@id/textView10"
         />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -55,15 +40,15 @@
         android:textSize="12sp"
         android:textColor="@color/text_color"
         android:background="#00000000"
-        app:layout_constraintBottom_toBottomOf="@+id/change_dlg_btn"
-        app:layout_constraintEnd_toStartOf="@+id/change_dlg_btn"
-        app:layout_constraintTop_toTopOf="@+id/change_dlg_btn" />
+        app:layout_constraintBottom_toBottomOf="@+id/add_dlg_btn"
+        app:layout_constraintEnd_toStartOf="@+id/add_dlg_btn"
+        app:layout_constraintTop_toTopOf="@+id/add_dlg_btn" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/change_dlg_btn"
+        android:id="@+id/add_dlg_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change"
+        android:text="Add"
         android:textSize="12sp"
         android:textColor="@color/text_color"
         android:background="#00000000"

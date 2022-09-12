@@ -1,10 +1,14 @@
 package com.example.quest
 
+import android.app.Dialog
 import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+//This is part of session - 2
 class QuestListActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var quest: QuestsList
     lateinit var binding: ActivityQuestListBinding
@@ -40,16 +45,32 @@ class QuestListActivity : AppCompatActivity(), View.OnClickListener {
         binding.difficultBtn.setOnClickListener(this)
         binding.popularBtn.setOnClickListener(this)
         binding.newBtn.setOnClickListener(this)
+        binding.searchResultBtn.setOnClickListener(this)
+        binding.spinner.adapter = ArrayAdapter<String>(this, android.R.layout
+            .simple_spinner_dropdown_item, listOf("Themed","For children","In car"))
         binding.addChip.setOnClickListener{
-            val chip = Chip(this)
-            chip.setText("Chip 1")
-            chip.setOnCloseIconClickListener {
-                binding.chipGroup.removeView(chip)
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.add_tag)
+            val addBtn = dialog.findViewById<Button>(R.id.add_dlg_btn)
+            val closeBtn = dialog.findViewById<Button>(R.id.close_dialog_btn)
+            val tag = dialog.findViewById<EditText>(R.id.add_tag_et)
+            dialog.show()
+            addBtn.setOnClickListener {
+                val chip = Chip(this)
+                chip.text = tag.text.toString()
+                chip.setOnCloseIconClickListener {
+                    binding.chipGroup.removeView(chip)
+                }
+                chip.setChipBackgroundColorResource(R.color.text_color);
+                chip.isCloseIconVisible = true;
+                chip.setTextColor(getResources().getColor(R.color.white))
+                binding.chipGroup.addView(chip)
+                dialog.dismiss()
             }
-            chip.setChipBackgroundColorResource(R.color.text_color);
-            chip.isCloseIconVisible = true;
-            chip.setTextColor(getResources().getColor(R.color.white))
-            binding.chipGroup.addView(chip)
+            closeBtn.setOnClickListener {
+                dialog.dismiss()
+            }
+
         }
     }
 
@@ -84,20 +105,36 @@ class QuestListActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.difficult_btn -> {
+                binding.difficultBtn.setBackgroundResource(R.drawable.background_green)
+                binding.popularBtn.setBackgroundResource(R.drawable.selection_button)
+                binding.newBtn.setBackgroundResource(R.drawable.selection_button)
                 adapter = CategoryAdapter(quest.content.sortedBy {
                     it.difficulty
                 })
                 binding.questListRecycler.adapter = adapter
             }
             R.id.new_btn -> {
+                binding.newBtn.setBackgroundResource(R.drawable.background_green)
+                binding.difficultBtn.setBackgroundResource(R.drawable.selection_button)
+                binding.popularBtn.setBackgroundResource(R.drawable.selection_button)
                 adapter = CategoryAdapter(quest.content.sortedBy {
                     it.creationDate
                 })
                 binding.questListRecycler.adapter = adapter
             }
             R.id.popular_btn -> {
+                binding.popularBtn.setBackgroundResource(R.drawable.background_green)
+                binding.difficultBtn.setBackgroundResource(R.drawable.selection_button)
+                binding.newBtn.setBackgroundResource(R.drawable.selection_button)
                 adapter = CategoryAdapter(quest.content.sortedBy {
                     it.difficulty
+                })
+                binding.questListRecycler.adapter = adapter
+            }
+            R.id.search_result_btn->{
+                val word = binding.wordsTv.text.toString()
+                adapter = CategoryAdapter(quest.content.filter{
+                    it.description?.contains(word) == true || it.name.contains(word)
                 })
                 binding.questListRecycler.adapter = adapter
             }
